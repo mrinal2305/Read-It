@@ -9,4 +9,4 @@ This is a _Cross-Platform_ app built for mac, linux and window with a single cod
 - _Api_              - Electron Api
 ### Preview
 Go to releases section and get my application for any specific platforms.
-> Pardon : Please ignore any message during installion and select 'Run Anyway' 
+> Pardon : Please ignore any message during installation and select 'Run Anyway' 
