@@ -1,23 +1,48 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const electron =  require('electron')
+const {app, BrowserWindow , ipcMain} = electron
+const windowStateKeeper    = require('electron-window-state')
 const path = require('path')
+const readItem = require('./readItem')
 
+require('electron-reload')(__dirname)  // reloading renderer .html,.css,.js file automtically
+//   , {  
+//   electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+// });
+
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+//Listen to itemUrl on channel - 'new-item'
+ipcMain.on('new-item',(e,itemUrl)=>{
+    readItem(itemUrl , (item) => {    // ***Passing a fn within a fn
+    e.sender.send('new-item-success',item) 
+    })
+})
+
 function createWindow () {
+
+  // Load the previous state with fallback to defaults
+  let state = windowStateKeeper({
+    defaultWidth:  500,
+    defaultHeight: 650
+  });
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    x: state.x ,  y : state.y,
+    width: state.width ,  height: state.height,
+    minWidth : 350 ,minHeight: 300,
     webPreferences: {
+      nodeIntegration : true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
-
+  // mainWindow.setMenuBarVisibility(false)   //Removing the menu bar
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile('renderer/index.html')
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
