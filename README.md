@@ -1,9 +1,9 @@
-Read It - desktop app
-
-i use electron api and vanilla js to build app
-to bundle and packaging i use eletron-builder
-to test in multple platform i used AppVeyor
-to package it i use 'gulp vs webpack vs bower vs Docker'
-to mangage and auto update, version modification i use github server
-to version-controlling i use git
-hosting github
+# Read It - desktop app
+-> A Desktop app to save all you important ***URL***,like you do in Bookmarks.
+This is a _Cross-Platform_ app built for mac, linux and window with a single codebase.
+### Tools Used
+- _Framework_        - Electron.js , 
+- _Language_         - HTML , CSS , Vanilla JS , 
+- _Bundling_         - Electron-builder ,
+- _Version Control_  - Git,   
+- _Api_              - Electron Api
